@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Crear Publicación</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="publicationForm" (ngSubmit)="addPublication()" class="form-container">
+    <!-- Campo Título -->
+    <ion-item>
+      <ion-label position="stacked">Título</ion-label>
+      <ion-input formControlName="title" placeholder="Ingrese un título"></ion-input>
+    </ion-item>
+    <ion-note
+      *ngIf="publicationForm.get('title')?.invalid && publicationForm.get('title')?.touched"
+      color="danger"
+    >
+      El título debe tener al menos 5 caracteres.
+    </ion-note>
+
+    <!-- Botón para Capturar Foto -->
+    <div class="photo-container">
+      <ion-button expand="block" (click)="takePicture()" color="dark">
+        <ion-icon slot="start" name="camera-outline"></ion-icon>
+        Fotografía
+      </ion-button>
+      <img *ngIf="photo" [src]="photo" class="photo-preview" />
+    </div>
+
+    <!-- Campo Descripción -->
+    <ion-item>
+      <ion-label position="stacked">Descripción</ion-label>
+      <ion-textarea
+        formControlName="description"
+        placeholder="Ingrese una descripción detallada"
+      ></ion-textarea>
+    </ion-item>
+    <ion-note
+      *ngIf="publicationForm.get('description')?.invalid && publicationForm.get('description')?.touched"
+      color="danger"
+    >
+      La descripción debe tener al menos 20 caracteres.
+    </ion-note>
+
+    <!-- Botón Guardar -->
+    <ion-button expand="block" type="submit" color="primary" [disabled]="publicationForm.invalid">
+      Guardar
+    </ion-button>
+
+  </form>
+</ion-content>

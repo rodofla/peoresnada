@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Publicaciones</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let publication of publications; let i = index" lines="none" class="publication-item">
+      <ion-thumbnail slot="start">
+        <img [src]="publication.image" alt="Imagen de publicación" />
+      </ion-thumbnail>
+      <ion-label>
+        <h2>{{ publication.title }}</h2>
+        <p>{{ publication.date | formatDate }}</p>
+      </ion-label>
+      <ion-buttons slot="end">
+        <ion-button color="danger" fill="clear" (click)="openModal(i)">
+          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+  </ion-list>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button [routerLink]="'/add-publication'" color="tertiary">
+      <ion-icon name="add" size="large"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
+
+<ion-modal [isOpen]="showModal" (ionModalDidDismiss)="closeModal()">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Confirmación</ion-title>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content>
+      <div style="text-align: center; margin: 20px;">
+        <p>¿Estás seguro de que deseas eliminar esta publicación?</p>
+        <ion-button color="danger" (click)="confirmDelete()">Eliminar</ion-button>
+        <ion-button fill="outline" (click)="closeModal()">Cancelar</ion-button>
+      </div>
+    </ion-content>
+  </ng-template>
+</ion-modal>
