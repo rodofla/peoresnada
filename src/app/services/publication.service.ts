@@ -15,7 +15,7 @@ export interface Publication {
 export class PublicationService {
   private key = 'publications';
 
-  // BehaviorSubject para emitir cambios en las publicaciones
+
   private publicationsSubject = new BehaviorSubject<Publication[]>([]);
   publications$ = this.publicationsSubject.asObservable();
 
